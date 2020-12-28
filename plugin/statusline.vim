@@ -8,7 +8,6 @@ hi User4 guibg=#282A36 guifg=#FF5555 gui=bold
 hi NotModifiedNC guibg=#282A36 guifg=#6272A4 gui=bold
 hi ModifiedNC guibg=#282A36 guifg=#FF5555 gui=bold
 
-
 function! FileNames()
     let specialFileNames = {'help': 'Help ', 'startify': 'Startify ', 'undotree': 'UndoTree '}
     if (has_key(specialFileNames, &filetype))
@@ -54,6 +53,6 @@ endfunction
 augroup status
   autocmd!
   autocmd BufWinEnter,BufWrite,WinEnter * setlocal statusline=%!ActiveStatus()
-  autocmd BufWritePost * :CocCommand git.refresh
+  autocmd User CocGitStatusChange setlocal statusline=%!ActiveStatus()
   autocmd WinLeave * setlocal statusline=%!InactiveStatus()
 augroup END
