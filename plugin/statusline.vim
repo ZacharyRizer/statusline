@@ -53,6 +53,6 @@ endfunction
 augroup status
   autocmd!
   autocmd BufWinEnter,BufWrite,WinEnter * setlocal statusline=%!ActiveStatus()
-  autocmd User CocGitStatusChange setlocal statusline=%!ActiveStatus()
+  autocmd BufWritePost * :CocCommand git.refresh
   autocmd WinLeave * setlocal statusline=%!InactiveStatus()
 augroup END
