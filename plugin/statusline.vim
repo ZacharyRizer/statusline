@@ -21,7 +21,7 @@ endfunction
 function! GetGitInfo()
     let gitInfo = get(g:, 'coc_git_status', '')
     if (gitInfo != '')
-        return ' '.gitInfo.' '
+        return ' '.gitInfo.' '
     else
         return gitInfo
     endif
@@ -30,15 +30,15 @@ endfunction
 function! ActiveStatus()
     let statusline=""
     if (&filetype == 'startify' || &filetype == 'undotree' )
-        let statusline.="%1*\ ﰆ\ %2*\ %{FileNames()}%="
+        let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%="
     elseif (&filetype == 'help')
-        let statusline.="%1*\ ﰆ\ %2*\ %{FileNames()}%=\ %3p%%\ 難\ %1*\ %2l/%L\ \ %2v\ "
+        let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%=\ %3p%%\ 難\ %1*\ %2l/%L\ \ %2v\ "
     else
         if (&modified)
-            let statusline.="%3*\ ﰆ\ %4*%{GetGitInfo()}\ %<%{FileNames()}"
+            let statusline.="%3*\ ﰆ\ %4*%{GetGitInfo()}%3*\ %<%{FileNames()}\ %4*"
             let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %3*\ %2l/%L\ \ %2v\ "
         else 
-            let statusline.="%1*\ ﰆ\ %2*%{GetGitInfo()}\ %<%{FileNames()}"
+            let statusline.="%1*\ ﰆ\ %2*%{GetGitInfo()}%1*\ %<%{FileNames()}\ %2*"
             let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %1*\ %2l/%L\ \ %2v\ "
         endif
     endif
