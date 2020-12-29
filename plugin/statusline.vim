@@ -31,14 +31,14 @@ function! ActiveStatus()
     if (&filetype == 'startify' || &filetype == 'undotree' )
         let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%="
     elseif (&filetype == 'help')
-        let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%=\ %3p%%\ 難\ %1*\ %2l/%L\ \ %2v\ "
+        let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%=\ %3p%%\ 難\ %1*\ %l/%L\ \ ❯\ %c\ "
     else
         if (&modified)
             let statusline.="%3*\ ﰆ\ %4*%{GetGitInfo()}%3*\ %<%{FileNames()}\ %4*"
-            let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %3*\ %2l/%L\ \ %2v\ "
+            let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %3*\ %l/%L\ \ ❯\ %c\ "
         else 
             let statusline.="%1*\ ﰆ\ %2*%{GetGitInfo()}%1*\ %<%{FileNames()}\ %2*"
-            let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %1*\ %2l/%L\ \ %2v\ "
+            let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %1*\ %l/%L\ \ ❯\ %c\ "
         endif
     endif
     return statusline
