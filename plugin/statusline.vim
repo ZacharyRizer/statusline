@@ -9,7 +9,7 @@ hi NotModifiedNC guibg=#282A36 guifg=#6272A4 gui=bold
 hi ModifiedNC guibg=#282A36 guifg=#8BE9FD gui=bold
 
 function! FileNames()
-    let specialFileNames = {'coc-explorer': 'Explorer ', 'help': 'Help ', 'startify': 'Startify ', 'undotree': 'UndoTree '}
+    let specialFileNames = {'fugitiveblame': 'Who Done This?', 'coc-explorer': 'Explorer ', 'help': 'Help ', 'startify': 'Startify ', 'undotree': 'UndoTree '}
     if (has_key(specialFileNames, &filetype))
         return specialFileNames[&filetype]
     else
