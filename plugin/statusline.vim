@@ -9,45 +9,45 @@ hi NotModifiedNC guibg=#282A36 guifg=#6272A4 gui=bold
 hi ModifiedNC guibg=#282A36 guifg=#8BE9FD gui=bold
 
 function! FileNames()
-    let specialFileNames = {'fugitiveblame': 'Who Done This?', 'coc-explorer': 'Explorer ', 'help': 'Help ', 'startify': 'Startify ', 'undotree': 'UndoTree '}
-    if (has_key(specialFileNames, &filetype))
-        return specialFileNames[&filetype]
-    else
-        return @%
-    endif
+  let specialFileNames = {'fugitiveblame': 'Who Done This?', 'coc-explorer': 'Explorer ', 'help': 'Help ', 'startify': 'Startify ', 'undotree': 'UndoTree '}
+  if (has_key(specialFileNames, &filetype))
+    return specialFileNames[&filetype]
+  else
+    return expand('%:t')
+  endif
 endfunction
 
 function! GetGitInfo()
-    let gitInfo = get(g:, 'coc_git_status', '')
-    if (gitInfo != '')
-        return ' '.gitInfo.' '
-    else
-        return gitInfo
-    endif
+  let gitInfo = get(g:, 'coc_git_status', '')
+  if (gitInfo != '')
+    return ' '.gitInfo.' '
+  else
+    return gitInfo
+  endif
 endfunction
 
 function! ActiveStatus()
-    let statusline=""
-    if (&filetype == 'coc-explorer' || &filetype == 'startify' || &filetype == 'undotree' )
-        let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%="
-    elseif (&filetype == 'help')
-        let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%=\ %3p%%\ 難\ %1*\ %l/%L\ \ :\ %c\ "
+  let statusline=""
+  if (&filetype == 'coc-explorer' || &filetype == 'startify' || &filetype == 'undotree' )
+    let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%="
+  elseif (&filetype == 'help')
+    let statusline.="%1*\ ﰆ\ %2*%1*\ %{FileNames()}%2*%=\ %3p%%\ 難\ %1*\ %l/%L\ \ :\ %c\ "
+  else
+    if (&modified)
+      let statusline.="%3*\ ﰆ\ %4*%{GetGitInfo()}%3*\ %<%{FileNames()}\ %4*"
+      let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %3*\ %l/%L\ \ :\ %c\ "
     else
-        if (&modified)
-            let statusline.="%3*\ ﰆ\ %4*%{GetGitInfo()}%3*\ %<%{FileNames()}\ %4*"
-            let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %3*\ %l/%L\ \ :\ %c\ "
-        else
-            let statusline.="%1*\ ﰆ\ %2*%{GetGitInfo()}%1*\ %<%{FileNames()}\ %2*"
-            let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %1*\ %l/%L\ \ :\ %c\ "
-        endif
+      let statusline.="%1*\ ﰆ\ %2*%{GetGitInfo()}%1*\ %<%{FileNames()}\ %2*"
+      let statusline.="%=\ %{coc#status()}\ \ %3p%%\ 難\ %1*\ %l/%L\ \ :\ %c\ "
     endif
-    return statusline
+  endif
+  return statusline
 endfunction
 
 function! InactiveStatus()
-    let statusline="%#ModifiedNC#%{&modified? '███   '.FileNames().' ': ''}%*%#NotModifiedNC#%{&modified? '' : '███   '.FileNames().' '}"
-    let statusline.="%=%#ModifiedNC#%{&modified? '███' : ''}%*%#NotModifiedNC#%{&modified? '': '███'}"
-    return statusline
+  let statusline="%#ModifiedNC#%{&modified? '███   '.FileNames().' ': ''}%*%#NotModifiedNC#%{&modified? '' : '███   '.FileNames().' '}"
+  let statusline.="%=%#ModifiedNC#%{&modified? '███' : ''}%*%#NotModifiedNC#%{&modified? '': '███'}"
+  return statusline
 endfunction
 
 augroup status
